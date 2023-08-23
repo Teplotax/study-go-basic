@@ -4,53 +4,42 @@ import "fmt"
 
 func main() {
 
-	// Using pointers
-	name := "Thiago Farias Reis"
-
-	fmt.Printf("Before: %v\n", name)
-	changeWithPointer(&name)
-	fmt.Printf("After: %v\n", name)
-	fmt.Println()
-	fmt.Printf("Before: %v\n", name)
-	changeWithoutPointer(name)
-	fmt.Printf("After: %v\n", name)
-
-	// Using methods
-	b := greeter{
-		greeting: "Sup",
-		name:     "Bruno",
-	}
-	t := greeter{
-		greeting: "Sup dude",
-		name:     "Thiago",
-	}
-
-	b.greet()
-	t.greet()
-	b.setGreeting("Fuck yeah")
-	b.greet()
+	//firstExample()
+	pointerTypes()
 
 }
 
-func changeWithPointer(name *string) {
-	*name = "Thiago F. Reis"
-	fmt.Printf("While: %v\n", *name)
+func firstExample() {
+	var a int = 42
+
+	// This is a pointer to an integer
+	var b *int
+
+	// & is called an "address of" operator
+	b = &a
+
+	// "b" holds the location of "a"
+	fmt.Println(a, b)
+
+	// This is a dereference, it finds the location and pull the value
+	fmt.Println(a, *b)
+
+	// If we change "a", both change
+	a = 27
+	fmt.Println(a, *b)
+
+	// If we change "b", both change
+	*b = 14
+	fmt.Println(a, *b)
 }
 
-func changeWithoutPointer(name string) {
-	name = "Thiago F. Reis"
-	fmt.Printf("While: %v\n", name)
+func pointerTypes() {
+	var ms *myStruct
+	fmt.Println(ms) // A not initialized pointer holds the value <nil>
+	ms = &myStruct{foo: 42}
+	fmt.Println(ms)
 }
 
-type greeter struct {
-	greeting string
-	name     string
-}
-
-func (g greeter) greet() {
-	fmt.Printf("-%v: %v!\n", g.name, g.greeting)
-}
-
-func (g *greeter) setGreeting(greeting string) {
-	g.greeting = greeting
+type myStruct struct {
+	foo int
 }
